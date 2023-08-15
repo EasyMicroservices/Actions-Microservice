@@ -45,6 +45,7 @@ namespace EasyMicroservices.ActionsMicroservice.WebApi
 
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped((serviceProvider) => new DependencyManager().GetContractLogic<ViewEntity, AddViewRequestContract, ViewContract, ViewContract>());
+            builder.Services.AddScoped((serviceProvider) => new DependencyManager().GetContractLogic<LikeEntity, AddLikeRequestContract, UpdateLikeRequestContract, LikeContract>());
             builder.Services.AddScoped<IDatabaseBuilder>(serviceProvider => new DatabaseBuilder());
    
             builder.Services.AddScoped<IDependencyManager>(service => new DependencyManager());

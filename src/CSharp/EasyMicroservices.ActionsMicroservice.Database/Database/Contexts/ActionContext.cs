@@ -13,6 +13,7 @@ namespace EasyMicroservices.ActionsMicroservice.Database.Contexts
         }
 
         public DbSet<ViewEntity> Views { get; set; }
+        public DbSet<LikeEntity> Likes { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,6 +28,11 @@ namespace EasyMicroservices.ActionsMicroservice.Database.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ViewEntity>(model =>
+            {
+                model.HasKey(x => x.Id);
+            });
+
+            modelBuilder.Entity<LikeEntity>(model =>
             {
                 model.HasKey(x => x.Id);
             });
