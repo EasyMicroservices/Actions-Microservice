@@ -1,5 +1,4 @@
-﻿using EasyMicroservices.ActionMicroservice.Database.Schemas;
-using EasyMicroservices.Cores.Database.Interfaces;
+﻿using EasyMicroservices.ActionsMicroservice.Database.Schemas;
 using EasyMicroservices.Cores.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EasyMicroservices.ActionsMicroservice.Database.Entities
 {
-    public class ActionEntity : ActionSchema, IIdSchema<long>
+    public class ViewEntity : ViewSchema, IIdSchema<long>
     {
         public long Id { get; set; }
     }

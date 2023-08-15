@@ -12,7 +12,7 @@ namespace EasyMicroservices.ActionsMicroservice.Database.Contexts
             _builder = builder;
         }
 
-        public DbSet<ActionEntity> Actions { get; set; }
+        public DbSet<ViewEntity> Views { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,7 +26,7 @@ namespace EasyMicroservices.ActionsMicroservice.Database.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ActionEntity>(model =>
+            modelBuilder.Entity<ViewEntity>(model =>
             {
                 model.HasKey(x => x.Id);
             });
