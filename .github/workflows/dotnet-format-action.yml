@@ -28,7 +28,6 @@ jobs:
           workspace: "./src/CSharp/EasyMicroservices.ActionsMicroservice.sln"
       - name: Test
         run:  |
-          dotnet test ./src/CSharp/EasyMicroservices.ActionsMicroservice.sln -f netcoreapp3.1
           dotnet test ./src/CSharp/EasyMicroservices.ActionsMicroservice.sln -f net6.0
           dotnet test ./src/CSharp/EasyMicroservices.ActionsMicroservice.sln -f net5.0
       - name: Commit files
