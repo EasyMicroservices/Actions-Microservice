@@ -17,27 +17,80 @@ namespace EasyMicroservices.ActionsMicroservice.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<MessageContract<LikeContract>> ToggleLike(GetUniqueIdentityRequestContract request)
+        public async Task<MessageContract> Like(GetUniqueIdentityRequestContract request)
         {
             var like = await base.GetByUniqueIdentity(new GetUniqueIdentityRequestContract
             {
                 UniqueIdentity = request.UniqueIdentity
             });
 
-            if(like)
+            if(!like)
             {
-                var updatedLike = await base.Update(new UpdateLikeRequestContract
+                var addedLike = await base.Add(new AddLikeRequestContract
                 {
-                    Id = like.Result.Id,
-                    IsLiked = !like.Result.IsLiked,
-                    UniqueIdentity = like.Result.UniqueIdentity
+                    UniqueIdentity = request.UniqueIdentity,
+                    IsLiked = true,
                 });
 
-                return updatedLike;
+                return addedLike.IsSuccess;
             }
 
+            var deletedLike = await base.HardDeleteById(new DeleteRequestContract<long>
+            {
+                Id = like.Result.Id
+            });
 
-            return (FailedReasonType.NotFound, "The like UID that you provided cannot be found.");
+            return deletedLike.IsSuccess;
+        }
+
+        [HttpPost]
+        public async Task<MessageContract> Dislike(GetUniqueIdentityRequestContract request)
+        {
+            var like = await base.GetByUniqueIdentity(new GetUniqueIdentityRequestContract
+            {
+                UniqueIdentity = request.UniqueIdentity
+            });
+
+            if(!like)
+            {
+                var addedLike = await base.Add(new AddLikeRequestContract
+                {
+                    UniqueIdentity = request.UniqueIdentity,
+                    IsLiked = false,
+                });
+
+                return addedLike.IsSuccess;
+            }
+
+            var updatedLike = await base.Update(new UpdateLikeRequestContract
+            {
+                Id = like.Result.Id,
+                IsLiked = false,
+                UniqueIdentity = like.Result.UniqueIdentity
+            });
+
+            return updatedLike.IsSuccess;
+        }
+
+        [HttpPost]
+        public async Task<MessageContract<GetLikesByStatusResponse>> GetLikesByStatus(GetLikesRequestContract request)
+        {
+            var likes = await base.GetAllByUniqueIdentity(new GetUniqueIdentityRequestContract
+            {
+                UniqueIdentity = request.UniqueIdentity
+            });
+
+            if(likes.IsSuccess)
+            {
+                var count = likes.Result.Count(o => o.IsLiked == request.IsLiked);
+                return new GetLikesByStatusResponse
+                {
+                    Count = count
+                };
+            }
+
+            return (FailedReasonType.NotFound, "Provided UID cannot be found.");
+
         }
     }
 }
