@@ -17,8 +17,8 @@ namespace EasyMicroservices.ActionsMicroservice
 
         public void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseInMemoryDatabase("ActionDatabase");
-            optionsBuilder.UseSqlServer(config.GetConnectionString("local"));
+            optionsBuilder.UseInMemoryDatabase("ActionDatabase");
+            //optionsBuilder.UseSqlServer(config.GetConnectionString("local"));
         }
     }
 }

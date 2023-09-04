@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\Requests\Filters\" />
-    <Folder Include="Contracts\Responses\" />
     <Folder Include="DataTypes\" />
   </ItemGroup>
 

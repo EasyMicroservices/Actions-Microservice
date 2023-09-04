@@ -37,9 +37,9 @@ namespace EasyMicroservices.ActionsMicroservice.WebApi
                 options.SchemaFilter<XEnumNamesSchemaFilter>();
             });
 
-            builder.Services.AddDbContext<ActionContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString(config.GetConnectionString("local")))
-            );
+            //builder.Services.AddDbContext<ActionContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString(config.GetConnectionString("local")))
+            //);
 
             string webRootPath = @Directory.GetCurrentDirectory();
 
