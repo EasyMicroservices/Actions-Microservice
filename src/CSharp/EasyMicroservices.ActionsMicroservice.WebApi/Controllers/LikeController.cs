@@ -35,6 +35,18 @@ namespace EasyMicroservices.ActionsMicroservice.WebApi.Controllers
                 return addedLike.IsSuccess;
             }
 
+            if (!like.Result.IsLiked)
+            {
+                var updatedLike = await base.Update(new UpdateLikeRequestContract
+                {
+                    Id = like.Result.Id,
+                    IsLiked = true,
+                    UniqueIdentity = like.Result.UniqueIdentity
+                });
+
+                return updatedLike.IsSuccess;
+            }
+
             var deletedLike = await base.HardDeleteById(new DeleteRequestContract<long>
             {
                 Id = like.Result.Id
@@ -62,14 +74,25 @@ namespace EasyMicroservices.ActionsMicroservice.WebApi.Controllers
                 return addedLike.IsSuccess;
             }
 
-            var updatedLike = await base.Update(new UpdateLikeRequestContract
+            if (like.Result.IsLiked)
             {
-                Id = like.Result.Id,
-                IsLiked = false,
-                UniqueIdentity = like.Result.UniqueIdentity
+                var updatedLike = await base.Update(new UpdateLikeRequestContract
+                {
+                    Id = like.Result.Id,
+                    IsLiked = false,
+                    UniqueIdentity = like.Result.UniqueIdentity
+                });
+
+                return updatedLike.IsSuccess;
+            }
+
+            var deletedLike = await base.HardDeleteById(new DeleteRequestContract<long>
+            {
+                Id = like.Result.Id
             });
 
-            return updatedLike.IsSuccess;
+            return deletedLike.IsSuccess;
+
         }
 
         [HttpPost]
