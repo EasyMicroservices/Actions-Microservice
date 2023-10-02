@@ -1,5 +1,6 @@
 ﻿using EasyMicroservices.ActionsMicroservice.Database.Entities;
 using EasyMicroservices.Cores.Relational.EntityFrameworkCore;
+using EasyMicroservices.Cores.Relational.EntityFrameworkCore.Intrerfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyMicroservices.ActionsMicroservice.Database.Contexts
@@ -7,13 +8,14 @@ namespace EasyMicroservices.ActionsMicroservice.Database.Contexts
     public class ActionContext : RelationalCoreContext
     {
         IDatabaseBuilder _builder;
-        public ActionContext(IDatabaseBuilder builder)
+        public ActionContext(IEntityFrameworkCoreDatabaseBuilder builder) : base(builder)
         {
-            _builder = builder;
         }
 
         public DbSet<ViewEntity> Views { get; set; }
         public DbSet<LikeEntity> Likes { get; set; }
+        public DbSet<FollowEntity> Follows { get; set; }
+        public DbSet<FavoriteEntity> Favorites { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

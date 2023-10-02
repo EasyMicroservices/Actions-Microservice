@@ -1,4 +1,5 @@
 ﻿using EasyMicroservices.ActionsMicroservice.Database;
+using EasyMicroservices.Cores.Relational.EntityFrameworkCore.Intrerfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace EasyMicroservices.ActionsMicroservice
 {
-    public class DatabaseBuilder : IDatabaseBuilder
+    public class DatabaseBuilder : IEntityFrameworkCoreDatabaseBuilder
     {
-        readonly IConfiguration config = new ConfigurationBuilder()
-        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-        .Build();
+        IConfiguration _configuration;
+        public DatabaseBuilder(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("ActionDatabase");
-            //optionsBuilder.UseSqlServer(config.GetConnectionString("local"));
+            optionsBuilder.UseInMemoryDatabase("ActionsDb");
+            //optionsBuilder.UseSqlServer(_configuration.GetConnectionString("local"));
         }
     }
 }

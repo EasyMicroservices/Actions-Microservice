@@ -6,14 +6,17 @@ using EasyMicroservices.ServiceContracts;
 using EasyMicroservices.Cores.Contracts.Requests;
 using EasyMicroservices.ActionsMicroservice.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
+using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
 
 namespace EasyMicroservices.ActionsMicroservice.WebApi.Controllers
 {
     public class LikeController : SimpleQueryServiceController<LikeEntity, AddLikeRequestContract, UpdateLikeRequestContract, LikeContract, long>
     {
-        public LikeController(IContractLogic<LikeEntity, AddLikeRequestContract, UpdateLikeRequestContract, LikeContract, long> contractReadable) : base(contractReadable)
-        {
+        private readonly IUnitOfWork _unitOfWork;
 
+        public LikeController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
