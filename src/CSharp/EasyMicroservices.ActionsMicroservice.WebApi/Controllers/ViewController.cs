@@ -5,14 +5,17 @@ using EasyMicroservices.ActionsMicroservice.Database.Entities;
 using EasyMicroservices.ServiceContracts;
 using EasyMicroservices.Cores.Contracts.Requests;
 using EasyMicroservices.ActionsMicroservice.Contracts.Requests;
+using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
 
 namespace EasyMicroservices.ActionsMicroservice.WebApi.Controllers
 {
     public class ViewController : SimpleQueryServiceController<ViewEntity, AddViewRequestContract, ViewContract, ViewContract, long>
     {
-        public ViewController(IContractLogic<ViewEntity, AddViewRequestContract, ViewContract, ViewContract, long> contractReadable) : base(contractReadable)
-        {
+        private readonly IUnitOfWork _unitOfWork;
 
+        public ViewController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
     }
 }
