@@ -10,7 +10,7 @@ namespace EasyMicroservices.ActionsMicroservice.WebApi
         public static async Task Main(string[] args)
         {
             var app = CreateBuilder(args);
-            var build = await app.Build<ActionContext>();
+            var build = await app.Build<ActionContext>(true);
             build.MapControllers();
             build.Run();
         }

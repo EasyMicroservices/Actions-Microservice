@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EasyMicroservices.Cores.Database" Version="0.0.0.36" />
+    <PackageReference Include="EasyMicroservices.Cores.Database" Version="0.0.0.45" />
   </ItemGroup>
 
 </Project>
